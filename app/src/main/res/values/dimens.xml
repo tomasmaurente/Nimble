@@ -1,0 +1,44 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Login Screen -->
+    <dimen name="height_hint_text">16sp</dimen>
+    <dimen name="height_hint_text_input">54dp</dimen>
+    <dimen name="padding_text_input">12dp</dimen>
+    <dimen name="margin_horizontal_text_input">24dp</dimen>
+    <dimen name="margin_vertical_text_input">20dp</dimen>
+    <dimen name="corner_radius">16dp</dimen>
+
+    <!-- Survey Presentation Screen -->
+    <dimen name="sps_lateral_walls_margin">16dp</dimen>
+    <dimen name="sps_bottom_margin">54dp</dimen>
+    <dimen name="sps_profile_pic_size">36dp</dimen>
+    <dimen name="sps_button_size">56dp</dimen>
+    <dimen name="sps_top_date_margin">60dp</dimen>
+    <dimen name="sps_top_date_size">12sp</dimen>
+    <dimen name="sps_today_size">34sp</dimen>
+    <dimen name="sps_dots_container_height">44dp</dimen>
+    <dimen name="sps_survey_title_text_size">28sp</dimen>
+    <dimen name="sps_survey_subtitle_text_size">16sp</dimen>
+
+    <!-- Dots -->
+    <dimen name="dots_size">8dp</dimen>
+    <dimen name="dots_margin_end">10dp</dimen>
+    <dimen name="dot_spacing">10dp</dimen>
+    <dimen name="dot_vertical_padding">18dp</dimen>
+
+    <!-- Survey beginning Screen -->
+    <dimen name="sbs_lateral_walls_margin">16dp</dimen>
+    <dimen name="sbs_bottom_margin">54dp</dimen>
+    <dimen name="sbs_profile_pic_size">36dp</dimen>
+    <dimen name="sbs_button_size">44dp</dimen>
+    <dimen name="sbs_top_margin">40dp</dimen>
+    <dimen name="sbs_top_title_margin">16dp</dimen>
+    <dimen name="sbs_top_subtitle_margin">16dp</dimen>
+    <dimen name="sbs_top_date_size">12sp</dimen>
+    <dimen name="sbs_today_size">34sp</dimen>
+    <dimen name="sbs_dots_container_height">44dp</dimen>
+    <dimen name="sbs_survey_title_text_size">28sp</dimen>
+    <dimen name="sbs_survey_subtitle_text_size">16sp</dimen>
+
+</resources>

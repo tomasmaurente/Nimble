@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.SurveyBeginningFragment"
+    >
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/first_survey_background"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backwardsButton"
+        android:layout_width="@dimen/sbs_button_size"
+        android:layout_height="@dimen/sbs_button_size"
+        android:layout_gravity="right"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_arrow_left"
+        android:layout_marginHorizontal="@dimen/sbs_lateral_walls_margin"
+        android:layout_marginTop="@dimen/sbs_top_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/surveyTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/sbs_lateral_walls_margin"
+        android:layout_marginTop="@dimen/sbs_top_title_margin"
+        android:fontFamily="@font/neuzeit_s_lt_std_book"
+        android:text="@string/titleText"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sbs_survey_title_text_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backwardsButton" />
+
+    <TextView
+        android:id="@+id/surveySubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/neuzeit_s_lt_std_book"
+        android:gravity="left"
+        android:text="@string/subtitleText"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sbs_survey_subtitle_text_size"
+        android:layout_marginTop="@dimen/sbs_top_title_margin"
+        android:layout_marginHorizontal="@dimen/sbs_survey_subtitle_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/surveyTitle" />
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="56dp"
+        android:text="@string/button_text"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/neuzeit_s_lt_std_book"
+        android:textStyle="bold"
+        android:layout_marginEnd="@dimen/sbs_lateral_walls_margin"
+        android:layout_marginBottom="54dp"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundImage"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
