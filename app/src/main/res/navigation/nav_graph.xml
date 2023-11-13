@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LoginScreen">
+
+    <fragment
+        android:id="@+id/LoginScreen"
+        android:name="com.example.nimble.fragments.LoginScreenFragment"
+        tools:layout="@layout/fragment_login_screen">
+
+        <action
+            android:id="@+id/action_LoginScreen_to_SurveyPresentationScreen"
+            app:destination="@id/SurveyPresentationScreen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SurveyPresentationScreen"
+        android:name="com.example.nimble.fragments.SurveyPresentationFragment"
+        tools:layout="@layout/fragment_survey_presentation">
+
+        <action
+            android:id="@+id/action_SurveyPresentationScreen_to_SurveyBeginningScreen"
+            app:destination="@id/SurveyBeginningScreen" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/SurveyBeginningScreen"
+        android:name="com.example.nimble.fragments.SurveyBeginningFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_survey_beginnig">
+
+        <action
+            android:id="@+id/action_SurveyBeginningScreen_to_SurveyPresentationScreen"
+            app:destination="@id/SurveyPresentationScreen" />
+    </fragment>
+
+
+</navigation>

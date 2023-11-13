@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.SurveyBeginningFragment"
+    >
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/dayMonthDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/sps_lateral_walls_margin"
+        android:layout_marginTop="@dimen/sps_top_date_margin"
+        android:fontFamily="@font/neuzeit_s_lt_std_book"
+        android:text="@string/dayMonthText"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sps_top_date_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/todayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/sps_lateral_walls_margin"
+        android:fontFamily="@font/neuzeit_s_lt_std_book"
+        android:textSize="@dimen/sps_today_size"
+        android:text="@string/todayText"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dayMonthDateText"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="@dimen/sps_profile_pic_size"
+        android:layout_height="@dimen/sps_profile_pic_size"
+        android:layout_marginEnd="@dimen/sps_lateral_walls_margin"
+        android:background="@drawable/rounded_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_person"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dayMonthDateText" />
+
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/dots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/sps_lateral_walls_margin"
+        app:dotsColor="@color/white"
+        app:dotsCornerRadius="@dimen/dots_size"
+        app:dotsSize="@dimen/dots_size"
+        app:dotsSpacing="@dimen/dot_spacing"
+        app:dotsWidthFactor="2.5"
+        app:progressMode="true"
+        app:selectedDotColor="@color/white"
+        android:paddingVertical="@dimen/dot_vertical_padding"
+        app:layout_constraintBottom_toTopOf="@+id/titleHolder"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/titleHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/sps_lateral_walls_margin"
+        android:fontFamily="@font/neuzeit_s_lt_std_book"
+        android:text="@string/titleText"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sps_survey_title_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/subtitleHolder"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/subtitleHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/sps_lateral_walls_margin"
+        android:layout_marginBottom="@dimen/sps_bottom_margin"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/surveySubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neuzeit_s_lt_std_book"
+            android:text="@string/subtitleText"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sps_survey_subtitle_text_size"
+            android:layout_weight="1"
+            android:gravity="left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/forwardButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/forwardButton"
+            android:layout_width="@dimen/sps_button_size"
+            android:layout_height="@dimen/sps_button_size"
+            android:layout_gravity="right"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            app:elevation="0dp"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:importantForAccessibility="no" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
