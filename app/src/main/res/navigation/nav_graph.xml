@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/SurveyPresentationScreen"
         android:name="com.example.nimble.fragments.SurveyPresentationFragment"
-        tools:layout="@layout/fragment_survey_presentation">
+        tools:layout="@layout/fragment_survey_presentation_cointainer">
 
         <action
             android:id="@+id/action_SurveyPresentationScreen_to_SurveyBeginningScreen"
