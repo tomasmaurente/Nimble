@@ -29,11 +29,16 @@ class  SurveyPresentationFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var viewPager: ViewPager2
+    private var surveyList: List<SurveyAttributesDto>? = null
 
     private val pager = object:ViewPager2.OnPageChangeCallback(){
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
-            updateView(SurveyPresentationMock.spMock[position], position)
+            surveyList?.let {
+                updateView(surveyList!![position], position)
+            } ?: run {
+                updateView(SurveyPresentationMock.spMock[position], position)
+            }
         }
     }
 
@@ -48,18 +53,24 @@ class  SurveyPresentationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loaderViewModel.setLoader(true)
-        surveysViewModel.getSurveys("hola")
+        viewPager = binding.viewPager
+        surveysViewModel.getSurveys("_pLM9flXty_EHfASP36LUF36Rfp6b5bFaAWxQYd4Ia4")
 
         surveysViewModel.surveyList.observe(viewLifecycleOwner) { surveys ->
-            viewPager = binding.viewPager
-            setViewPager()
+            surveys?.let {
+                surveyList = surveys
+            } ?: run {
+                surveyList = SurveyPresentationMock.spMock
+            }
+            setViewPager(surveyList!!)
             loaderViewModel.setLoader(false)
+
         }
     }
 
-    private fun setViewPager(){
+    private fun setViewPager(surveyList: List<SurveyAttributesDto>){
         val adapter = SurveyPresentationAdapter(
-            SurveyPresentationMock.spMock
+            surveyList
         ) { onScreenClickListener() }
         viewPager.adapter = adapter
         viewPager.registerOnPageChangeCallback(pager)
@@ -86,7 +97,7 @@ class  SurveyPresentationFragment : Fragment() {
         }
 
         binding.forwardButton.setOnClickListener{
-            val newPosition = (position + 1 ) % (SurveyPresentationMock.spMock.size)     //  Cambiar a tamano de lista!!!!
+            val newPosition = (position + 1 ) % (surveyList?.size ?: SurveyPresentationMock.spMock.size)
             viewPager.currentItem = newPosition
         }
     }

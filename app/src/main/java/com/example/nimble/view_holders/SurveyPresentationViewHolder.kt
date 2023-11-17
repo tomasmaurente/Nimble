@@ -15,9 +15,9 @@ class SurveyPresentationViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun setView(imageSrc: String?){
-        Picasso.get().load(imageSrc).into(binding.backgroundImage, object : Callback {
+        val newImageSrc = imageSrc + "l"
+        Picasso.get().load(newImageSrc).into(binding.backgroundImage, object : Callback {
             override fun onSuccess() {
-                //loaderViewModel.setLoader(false)
             }
 
             override fun onError(e: Exception?) {
