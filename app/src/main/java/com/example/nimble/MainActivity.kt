@@ -11,14 +11,18 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.nimble.databinding.ActivityMainBinding
+import com.example.nimble.fragments.LoaderFragment
+import com.example.nimble.viewModels.LoaderViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private val loaderViewModel: LoaderViewModel by viewModels()
+    private val loaderFragment = LoaderFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +30,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsetsCompat.Type.systemBars())
             window.insetsController?.hide(WindowInsetsCompat.Type.statusBars())
         }
+
+        loaderViewModel.loader.observe(this) { loader ->
+            if(loader != null && loader && !loaderFragment.isVisible) {
+                loaderFragment.isCancelable = false
+                loaderFragment.show(supportFragmentManager, "loader_fragment")
+            }
+        }
+
     }
 }

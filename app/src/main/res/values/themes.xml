@@ -4,5 +4,12 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/background_grey</item>
+    </style>
+
     <style name="Theme.Nimble" parent="Base.Theme.Nimble" />
 </resources>
