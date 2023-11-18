@@ -23,6 +23,10 @@
         <action
             android:id="@+id/action_SurveyPresentationScreen_to_SurveyBeginningScreen"
             app:destination="@id/SurveyBeginningScreen" />
+
+        <action
+            android:id="@+id/action_SurveyPresentationScreen_to_LoginScreen"
+            app:destination="@id/LoginScreen" />
     </fragment>
 
 

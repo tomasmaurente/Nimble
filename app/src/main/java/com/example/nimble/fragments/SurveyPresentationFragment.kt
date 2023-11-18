@@ -16,6 +16,7 @@ import com.example.nimble.mock.SurveyPresentationMock
 import com.example.nimble.viewModels.LoaderViewModel
 import com.example.nimble.viewModels.SurveyPresentationViewModel
 import com.example.nimble.view_holders.SurveyPresentationAdapter
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -25,6 +26,7 @@ class  SurveyPresentationFragment : Fragment() {
     private var _binding: FragmentSurveyPresentationBinding? = null
     private val loaderViewModel: LoaderViewModel by activityViewModels()
     private val surveysViewModel: SurveyPresentationViewModel by activityViewModels()
+    private var token: String? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -53,9 +55,16 @@ class  SurveyPresentationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loaderViewModel.setLoader(true)
         viewPager = binding.viewPager
-        surveysViewModel.getSurveys("oHu4_wVC1GIObAwexksP9wkPR3zb-ilR6wSbxKOLal8")
+
+        arguments?.let { token = it.getString("token") as String }
+        token?.let { key ->
+            surveysViewModel.getSurveys(key)
+        } ?: run {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content),
+                "Something went wrong, please try again", Snackbar.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_SurveyPresentationScreen_to_LoginScreen)
+        }
 
         surveysViewModel.surveyList.observe(viewLifecycleOwner) { surveys ->
             surveys?.let {
