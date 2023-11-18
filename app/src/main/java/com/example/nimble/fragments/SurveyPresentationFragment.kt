@@ -33,11 +33,13 @@ class  SurveyPresentationFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewPager: ViewPager2
     private var surveyList: List<SurveyDto>? = null
+    private var imgSrc: String? = null
 
     private val pager = object:ViewPager2.OnPageChangeCallback(){
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
             surveyList?.let {
+                imgSrc = surveyList!![position].attributes.cover_image_url
                 updateView(surveyList!![position].attributes, position)
             } ?: run {
                 updateView(SurveyPresentationMock.spMock[position].attributes, position)
@@ -94,7 +96,9 @@ class  SurveyPresentationFragment : Fragment() {
     }
 
     private fun onScreenClickListener(){
-        findNavController().navigate(R.id.action_SurveyPresentationScreen_to_SurveyBeginningScreen)
+        val bundle = Bundle()
+        bundle.putString("src", imgSrc)
+        findNavController().navigate(R.id.action_SurveyPresentationScreen_to_SurveyBeginningScreen, bundle)
     }
 
     private fun updateView(surveyData: SurveyAttributesDto, position: Int){

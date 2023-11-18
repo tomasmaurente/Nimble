@@ -85,6 +85,11 @@ class LoginScreenFragment : Fragment() {
                     response.error_message.toString(), Snackbar.LENGTH_LONG).show()
             }
         }
+
+        binding.forgot.setOnClickListener {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content),
+                "The forgot password function is not implemented yet", Snackbar.LENGTH_LONG).show()
+        }
     }
 
     override fun onDestroyView() {
