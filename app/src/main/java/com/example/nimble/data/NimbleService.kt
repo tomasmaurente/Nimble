@@ -1,8 +1,11 @@
 package com.example.nimble.data
 
+import com.example.nimble.dtos.loginResponse.LoginRequest
+import com.example.nimble.dtos.loginResponse.LoginResponse
 import com.example.nimble.dtos.surveyListResponse.SurveyAttributesDto
 import com.example.nimble.dtos.surveyListResponse.SurveyDto
 import com.example.nimble.utils.Constants
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -13,6 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class NimbleService {
 
     private val constants = Constants()
+    private val retrofit = Retrofit.Builder().baseUrl(constants.apiUrl).addConverterFactory(
+        GsonConverterFactory.create()).build()
 
     suspend fun getSurveys(accessToken: String): List<SurveyDto> {
         val retrofitToken = Retrofit.Builder().baseUrl(constants.apiUrl).addConverterFactory(
@@ -53,6 +58,39 @@ class NimbleService {
                 }
             }
             surveys
+        }
+    }
+
+    suspend fun login(parameters: LoginRequest): LoginResponse {
+        return withContext(Dispatchers.IO) {
+            val response: Response<Map<*, *>?> = retrofit.create(ApiService::class.java).login("oauth/token", parameters)
+            var userInfo = LoginResponse(null, null, null, null, null,"Something went wrong, please try again")
+
+            if(response.isSuccessful) {
+                val loginResponse = response.body()
+
+                loginResponse?.let {
+                    if(loginResponse.containsKey("data")) {
+                        val data: Map<*, *> = loginResponse["data"] as Map<*, *>
+                        val attributes: Map<*, *> = data["attributes"] as Map<*, *>
+                        val accessToken: String = attributes["access_token"].toString()
+                        val tokenType: String = attributes["token_type"].toString()
+                        val expiresIn: Long = attributes["expires_in"].toString().toDouble().toLong()
+                        val refreshToken: String = attributes["refresh_token"].toString()
+                        val createdAt: Long = attributes["created_at"].toString().toDouble().toLong()
+
+                        userInfo = LoginResponse(accessToken, createdAt, expiresIn,  refreshToken, tokenType, null)
+                    }
+
+                    if(loginResponse.containsKey("errors")) {
+                        val errors: Map<*, *> = loginResponse["errors"] as Map<*, *>
+                        val detail: String = errors["detail"].toString()
+
+                        userInfo = LoginResponse(null, null, null, null, null, detail)
+                    }
+                }
+            }
+            userInfo
         }
     }
 }
