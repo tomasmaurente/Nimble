@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.nimble.R
 import com.example.nimble.databinding.FragmentSurveyPresentationBinding
 import com.example.nimble.dtos.surveyListResponse.SurveyAttributesDto
+import com.example.nimble.dtos.surveyListResponse.SurveyDto
 import com.example.nimble.mock.SurveyPresentationMock
 import com.example.nimble.viewModels.LoaderViewModel
 import com.example.nimble.viewModels.SurveyPresentationViewModel
@@ -29,15 +30,15 @@ class  SurveyPresentationFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var viewPager: ViewPager2
-    private var surveyList: List<SurveyAttributesDto>? = null
+    private var surveyList: List<SurveyDto>? = null
 
     private val pager = object:ViewPager2.OnPageChangeCallback(){
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
             surveyList?.let {
-                updateView(surveyList!![position], position)
+                updateView(surveyList!![position].attributes, position)
             } ?: run {
-                updateView(SurveyPresentationMock.spMock[position], position)
+                updateView(SurveyPresentationMock.spMock[position].attributes, position)
             }
         }
     }
@@ -54,7 +55,7 @@ class  SurveyPresentationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loaderViewModel.setLoader(true)
         viewPager = binding.viewPager
-        surveysViewModel.getSurveys("_pLM9flXty_EHfASP36LUF36Rfp6b5bFaAWxQYd4Ia4")
+        surveysViewModel.getSurveys("oHu4_wVC1GIObAwexksP9wkPR3zb-ilR6wSbxKOLal8")
 
         surveysViewModel.surveyList.observe(viewLifecycleOwner) { surveys ->
             surveys?.let {
@@ -68,7 +69,7 @@ class  SurveyPresentationFragment : Fragment() {
         }
     }
 
-    private fun setViewPager(surveyList: List<SurveyAttributesDto>){
+    private fun setViewPager(surveyList: List<SurveyDto>){
         val adapter = SurveyPresentationAdapter(
             surveyList
         ) { onScreenClickListener() }

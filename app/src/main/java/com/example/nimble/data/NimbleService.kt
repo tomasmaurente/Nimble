@@ -1,6 +1,7 @@
 package com.example.nimble.data
 
 import com.example.nimble.dtos.surveyListResponse.SurveyAttributesDto
+import com.example.nimble.dtos.surveyListResponse.SurveyDto
 import com.example.nimble.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,7 +14,7 @@ class NimbleService {
 
     private val constants = Constants()
 
-    suspend fun getSurveys(accessToken: String): List<SurveyAttributesDto> {
+    suspend fun getSurveys(accessToken: String): List<SurveyDto> {
         val retrofitToken = Retrofit.Builder().baseUrl(constants.apiUrl).addConverterFactory(
             GsonConverterFactory.create()).client(OkHttpClient.Builder().addInterceptor { chain ->
             val original = chain.request()
@@ -25,7 +26,7 @@ class NimbleService {
 
         return withContext(Dispatchers.IO) {
             val response: Response<Map<*, *>> = retrofitToken.create(ApiService::class.java).getSurveys("surveys?page[number]=1&page[size]=5")
-            val surveys: MutableList<SurveyAttributesDto> = mutableListOf()
+            val surveys: MutableList<SurveyDto> = mutableListOf()
 
             if(response.isSuccessful) {
                 val surveysResponse = response.body()
@@ -42,7 +43,11 @@ class NimbleService {
                             val coverImageUrl: String = attributes["cover_image_url"].toString()
                             val type: String = attributes["survey_type"].toString()
 
-                            surveys.add(SurveyAttributesDto(null, coverImageUrl,null,description,null,null,type,null, null, title))
+                            surveys.add(SurveyDto(
+                                        SurveyAttributesDto(null, coverImageUrl,null,description,null,null,type,null, null, title),
+                                        surveyId,
+                                        type)
+                            )
                         }
                     }
                 }
