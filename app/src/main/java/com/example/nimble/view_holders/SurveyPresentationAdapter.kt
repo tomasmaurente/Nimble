@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nimble.databinding.FragmentSurveyPresentationCointainerBinding
-import com.example.nimble.dtos.SurveyPresentationDto
-import com.example.nimble.dtos.surveyListResponse.SurveyAttributesDto
 import com.example.nimble.dtos.surveyListResponse.SurveyDto
 
 class SurveyPresentationAdapter(private val surveyPresentationList: List<SurveyDto>,

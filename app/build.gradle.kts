@@ -51,6 +51,10 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.22")
 
+    // Side Menu
+    implementation("androidx.drawerlayout:drawerlayout:1.2.0")
+    implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
+
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

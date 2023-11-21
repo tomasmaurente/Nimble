@@ -5,7 +5,6 @@ import com.example.nimble.dtos.loginResponse.LoginResponse
 import com.example.nimble.dtos.surveyListResponse.SurveyAttributesDto
 import com.example.nimble.dtos.surveyListResponse.SurveyDto
 import com.example.nimble.utils.Constants
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -30,7 +29,7 @@ class NimbleService {
         }.build()).build()
 
         return withContext(Dispatchers.IO) {
-            val response: Response<Map<*, *>> = retrofitToken.create(ApiService::class.java).getSurveys("surveys?page[number]=1&page[size]=5")
+            val response: Response<Map<*, *>> = retrofitToken.create(ApiNimbleService::class.java).getSurveys("surveys?page[number]=1&page[size]=5")
             val surveys: MutableList<SurveyDto> = mutableListOf()
 
             if(response.isSuccessful) {
@@ -63,7 +62,7 @@ class NimbleService {
 
     suspend fun login(parameters: LoginRequest): LoginResponse {
         return withContext(Dispatchers.IO) {
-            val response: Response<Map<*, *>?> = retrofit.create(ApiService::class.java).login("oauth/token", parameters)
+            val response: Response<Map<*, *>?> = retrofit.create(ApiNimbleService::class.java).login("oauth/token", parameters)
             var userInfo = LoginResponse(null, null, null, null, null,"Something went wrong, please try again")
 
             if(response.isSuccessful) {

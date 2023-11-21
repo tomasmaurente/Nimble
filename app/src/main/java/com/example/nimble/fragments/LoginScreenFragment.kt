@@ -57,6 +57,7 @@ class LoginScreenFragment : Fragment() {
         }
 
         binding.buttonLogIn.setOnClickListener {
+
             val email = binding.emailInput.text.toString().trim()
             val password = binding.passInput.text.toString().trim()
 
@@ -71,6 +72,8 @@ class LoginScreenFragment : Fragment() {
 
             val inputMethodManager: InputMethodManager = requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+
+
         }
 
         loginViewModel.loginResponseLiveData.observe(viewLifecycleOwner){ response ->
@@ -84,6 +87,11 @@ class LoginScreenFragment : Fragment() {
                 Snackbar.make(requireActivity().findViewById(android.R.id.content),
                     response.error_message.toString(), Snackbar.LENGTH_LONG).show()
             }
+        }
+
+        binding.forgot.setOnClickListener {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content),
+                "The forgot password function is not implemented yet", Snackbar.LENGTH_LONG).show()
         }
     }
 
