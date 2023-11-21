@@ -40,5 +40,4 @@
     <dimen name="sbs_dots_container_height">44dp</dimen>
     <dimen name="sbs_survey_title_text_size">28sp</dimen>
     <dimen name="sbs_survey_subtitle_text_size">16sp</dimen>
-
 </resources>

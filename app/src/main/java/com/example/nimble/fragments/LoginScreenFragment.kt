@@ -57,6 +57,7 @@ class LoginScreenFragment : Fragment() {
         }
 
         binding.buttonLogIn.setOnClickListener {
+
             val email = binding.emailInput.text.toString().trim()
             val password = binding.passInput.text.toString().trim()
 
@@ -71,6 +72,8 @@ class LoginScreenFragment : Fragment() {
 
             val inputMethodManager: InputMethodManager = requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+
+
         }
 
         loginViewModel.loginResponseLiveData.observe(viewLifecycleOwner){ response ->
