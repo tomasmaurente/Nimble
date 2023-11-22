@@ -4,32 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SurveyBeginningFragment"
-    >
+    tools:context=".view.SurveyBeginningFragment">
 
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/first_survey_background"
-        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:src="@drawable/first_survey_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/backwardsButton"
         android:layout_width="@dimen/sbs_button_size"
         android:layout_height="@dimen/sbs_button_size"
         android:layout_gravity="right"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="@color/transparent"
-        android:src="@drawable/ic_arrow_left"
         android:layout_marginHorizontal="@dimen/sbs_lateral_walls_margin"
         android:layout_marginTop="@dimen/sbs_top_margin"
+        android:background="@color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_arrow_left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,14 +54,14 @@
         android:id="@+id/surveySubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/sbs_survey_subtitle_text_size"
+        android:layout_marginTop="@dimen/sbs_top_title_margin"
         android:layout_weight="1"
         android:fontFamily="@font/neuzeit_s_lt_std_book"
         android:gravity="left"
         android:text="@string/subtitleText"
         android:textColor="@color/white"
         android:textSize="@dimen/sbs_survey_subtitle_text_size"
-        android:layout_marginTop="@dimen/sbs_top_title_margin"
-        android:layout_marginHorizontal="@dimen/sbs_survey_subtitle_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,14 +70,14 @@
     <Button
         android:layout_width="140dp"
         android:layout_height="56dp"
-        android:text="@string/button_text"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/neuzeit_s_lt_std_book"
-        android:textStyle="bold"
         android:layout_marginEnd="@dimen/sbs_lateral_walls_margin"
         android:layout_marginBottom="54dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/neuzeit_s_lt_std_book"
+        android:text="@string/button_text"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/backgroundImage"
         app:layout_constraintEnd_toEndOf="parent" />
 
