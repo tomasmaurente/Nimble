@@ -7,36 +7,20 @@ import com.example.domain.entities.loginResponse.LoginRequest
 import com.example.domain.entities.loginResponse.LoginResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import com.example.domain.entities.Result
 import com.example.domain.entities.refreshToken.RefreshRequest
 
 class NimbleService {
 
-    private val API_URL = "https://survey-api.nimblehq.co/api/v1/"
-    private val retrofit = Retrofit.Builder().baseUrl(API_URL).addConverterFactory(
-        GsonConverterFactory.create()).build()
-
     suspend fun getSurveys(accessToken: String): Result<List<SurveyResponse>> {
-        val retrofitToken = Retrofit.Builder().baseUrl(API_URL).addConverterFactory(
-            GsonConverterFactory.create()).client(OkHttpClient.Builder().addInterceptor { chain ->
-            val original = chain.request()
-            val requestBuilder = original.newBuilder().header("Authorization", "Bearer $accessToken")
-            val request = requestBuilder.build()
-
-            chain.proceed(request)
-        }.build()).build()
-
         return withContext(Dispatchers.IO) {
-            val response: Response<Map<*, *>> = retrofitToken.create(ApiService::class.java).getSurveys("surveys?page[number]=1&page[size]=5")
+            val response: Response<Map<*, *>> = RetrofitFactory.getRetrofitForSurveys(accessToken)
+                .create(ApiService::class.java).getSurveys("surveys?page[number]=1&page[size]=5")
             val surveys: MutableList<SurveyResponse> = mutableListOf()
 
             if(response.isSuccessful) {
                 val surveysResponse = response.body()
-
                 if(surveysResponse != null) {
                     if(surveysResponse.containsKey("data")) {
                         val surveysList: List<Map<*, *>> = surveysResponse["data"] as List<Map<*, *>>
@@ -65,7 +49,8 @@ class NimbleService {
 
     suspend fun login(parameters: LoginRequest): Result<LoginResponse> {
         return withContext(Dispatchers.IO) {
-            val response: Response<Map<*, *>?> = retrofit.create(ApiService::class.java).login("oauth/token", parameters)
+            val response: Response<Map<*, *>?> = RetrofitFactory.getRetrofitForAuthentication()
+                .create(ApiService::class.java).login("oauth/token", parameters)
             var userInfo = LoginResponse(null, null, null, null, null,"Something went wrong, please try again")
 
             if(response.isSuccessful) {
@@ -103,7 +88,8 @@ class NimbleService {
 
     suspend fun refreshToken(parameters: RefreshRequest): Result<LoginResponse> {
         return withContext(Dispatchers.IO) {
-            val response: Response<Map<*, *>?> = retrofit.create(ApiService::class.java).refreshToken("oauth/token", parameters)
+            val response: Response<Map<*, *>?> = RetrofitFactory.getRetrofitForAuthentication()
+                .create(ApiService::class.java).refreshToken("oauth/token", parameters)
             var userInfo = LoginResponse(null, null, null, null, null,"Something went wrong, please try again")
 
             if(response.isSuccessful) {
@@ -135,9 +121,6 @@ class NimbleService {
                     else -> Result.Failure(LoginErrorException())
                 }
             }
-
         }
     }
-
-
 }
