@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val loaderViewModel: LoaderViewModel by viewModels()
-    private val loaderFragment = LoaderFragment()
+    private val loaderFragment = LoaderDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

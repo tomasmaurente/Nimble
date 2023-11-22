@@ -8,13 +8,16 @@ import com.example.domain.entities.Result
 import com.example.domain.entities.loginResponse.LoginRequest
 import com.example.domain.entities.loginResponse.LoginResponse
 import com.example.domain.usecases.LoginUseCase
+import com.example.nimble.BuildConfig
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val loginUseCase: LoginUseCase): ViewModel() {
     private val _loginResponseLiveData = MutableLiveData<LoginResponse>()
     val loginResponseLiveData: LiveData<LoginResponse> = _loginResponseLiveData
 
-    fun login(parameters: LoginRequest) {
+    fun login(email: String, password: String) {
+        val parameters = LoginRequest(BuildConfig.API_CLIENT, BuildConfig.API_SECRET, email, "password", password)
+
         viewModelScope.launch {
             when (val response = loginUseCase(parameters)){
                 is Result.Success -> {

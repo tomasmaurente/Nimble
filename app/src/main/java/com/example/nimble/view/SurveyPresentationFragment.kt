@@ -17,6 +17,7 @@ import com.example.nimble.viewModel.factory.AppViewModelProvider
 import com.example.nimble.viewModel.LoaderViewModel
 import com.example.nimble.viewModel.SurveyPresentationViewModel
 import com.example.nimble.adapters.SurveyPresentationAdapter
+import com.example.nimble.viewModel.TokenViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class  SurveyPresentationFragment : Fragment() {
@@ -26,10 +27,12 @@ class  SurveyPresentationFragment : Fragment() {
     private val loaderViewModel by lazy{
         AppViewModelProvider(activity).get(LoaderViewModel::class.java)
     }
+    private val tokenViewModel by lazy{
+        AppViewModelProvider(activity).get(TokenViewModel::class.java)
+    }
     private val viewModel by lazy{
         AppViewModelProvider(activity).get(SurveyPresentationViewModel::class.java)
     }
-    private var token: String? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -62,9 +65,8 @@ class  SurveyPresentationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewPager = binding.viewPager
 
-        arguments?.let { token = it.getString("token") as String }
-        token?.let { key ->
-            viewModel.getSurveys(key)
+        tokenViewModel.getToken()?.let { token ->
+            viewModel.getSurveys(token)
         } ?: run {
             Snackbar.make(requireActivity().findViewById(android.R.id.content),
                 "Something went wrong, please try again", Snackbar.LENGTH_LONG).show()

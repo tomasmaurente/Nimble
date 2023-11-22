@@ -11,7 +11,7 @@ import com.example.nimble.databinding.FragmentLoaderBinding
 import com.example.nimble.viewModel.LoaderViewModel
 import com.example.nimble.viewModel.factory.AppViewModelProvider
 
-class LoaderFragment : DialogFragment() {
+class LoaderDialog : DialogFragment() {
     private var _binding: FragmentLoaderBinding? = null
     private val binding get() = _binding!!
     private val loaderViewModel by lazy{

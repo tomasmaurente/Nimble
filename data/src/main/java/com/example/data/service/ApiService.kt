@@ -1,6 +1,7 @@
 package com.example.data.service
 
 import com.example.domain.entities.loginResponse.LoginRequest
+import com.example.domain.entities.refreshToken.RefreshRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -13,4 +14,7 @@ interface ApiService {
 
     @POST
     suspend fun login(@Url url: String, @Body parameters: LoginRequest): Response<Map<*, *>?>
+
+    @POST
+    suspend fun refreshToken(@Url url: String, @Body parameters: RefreshRequest): Response<Map<*, *>?>
 }
