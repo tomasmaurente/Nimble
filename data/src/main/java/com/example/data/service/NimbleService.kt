@@ -3,7 +3,6 @@ package com.example.data.service
 import com.example.data.exceptions.LoginErrorException
 import com.example.data.responseObjects.surveyListResponse.SurveyAttributesResponse
 import com.example.data.responseObjects.surveyListResponse.SurveyResponse
-import com.example.data.utils.Constants
 import com.example.domain.entities.loginResponse.LoginRequest
 import com.example.domain.entities.loginResponse.LoginResponse
 import kotlinx.coroutines.Dispatchers
@@ -16,12 +15,12 @@ import com.example.domain.entities.Result
 
 class NimbleService {
 
-    private val constants = Constants()
-    private val retrofit = Retrofit.Builder().baseUrl(constants.apiUrl).addConverterFactory(
+    private val API_URL = "https://survey-api.nimblehq.co/api/v1/"
+    private val retrofit = Retrofit.Builder().baseUrl(API_URL).addConverterFactory(
         GsonConverterFactory.create()).build()
 
     suspend fun getSurveys(accessToken: String): Result<List<SurveyResponse>> {
-        val retrofitToken = Retrofit.Builder().baseUrl(constants.apiUrl).addConverterFactory(
+        val retrofitToken = Retrofit.Builder().baseUrl(API_URL).addConverterFactory(
             GsonConverterFactory.create()).client(OkHttpClient.Builder().addInterceptor { chain ->
             val original = chain.request()
             val requestBuilder = original.newBuilder().header("Authorization", "Bearer $accessToken")

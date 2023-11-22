@@ -10,12 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.data.utils.Constants
 import com.example.nimble.R
 import com.example.nimble.databinding.FragmentLoginScreenBinding
 import com.example.domain.entities.loginResponse.LoginRequest
+import com.example.nimble.BuildConfig
 import com.example.nimble.viewModel.LoaderViewModel
 import com.example.nimble.viewModel.LoginViewModel
 import com.example.nimble.viewModel.factory.AppViewModelProvider
@@ -30,7 +29,6 @@ class LoginScreenFragment : Fragment() {
     private val viewModel by lazy{
         AppViewModelProvider(activity).get(LoginViewModel::class.java)
     }
-    private val constants = Constants()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -64,7 +62,7 @@ class LoginScreenFragment : Fragment() {
                     "You must fill all fields to continue!", Snackbar.LENGTH_LONG).show()
             } else {
                 loaderViewModel.setLoader(true)
-                val parameters = LoginRequest(constants.clientId, constants.clientSecret, email, "password", password)
+                val parameters = LoginRequest(BuildConfig.API_CLIENT, BuildConfig.API_SECRET, email, "password", password)
                 viewModel.login(parameters)
             }
 
