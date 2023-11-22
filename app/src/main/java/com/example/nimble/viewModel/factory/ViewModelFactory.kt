@@ -1,17 +1,19 @@
 package com.example.nimble.viewModel.factory
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import com.example.data.repositories.GetSurveyPresentationsRepositoryImp
 import com.example.data.repositories.LoginRepositoryImp
+import com.example.data.repositories.RefreshTokenRepositoryImp
 import com.example.data.service.NimbleService
 import com.example.domain.usecases.GetSurveyPresentationsUseCase
 import com.example.domain.usecases.LoginUseCase
+import com.example.domain.usecases.RefreshTokenUseCase
 import com.example.nimble.viewModel.LoaderViewModel
 import com.example.nimble.viewModel.LoginViewModel
 import com.example.nimble.viewModel.SurveyPresentationViewModel
+import com.example.nimble.viewModel.TokenViewModel
 
 class ViewModelFactory(private val context: Context) : NewInstanceFactory() {
 
@@ -37,6 +39,15 @@ class ViewModelFactory(private val context: Context) : NewInstanceFactory() {
             }
             LoaderViewModel::class.java -> {
                 LoaderViewModel() as T
+            }
+            TokenViewModel::class.java -> {
+                TokenViewModel(
+                    RefreshTokenUseCase(
+                        RefreshTokenRepositoryImp(
+                            NimbleService()
+                        )
+                    )
+                ) as T
             }
             else -> {
                 super.create(modelClass)

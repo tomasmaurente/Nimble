@@ -2,27 +2,23 @@ package com.example.nimble
 
 import android.os.Build
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import android.view.WindowManager
-import androidx.activity.viewModels
-import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.domain.entities.loginResponse.LoginResponse
 import com.example.nimble.databinding.ActivityMainBinding
-import com.example.nimble.fragments.LoaderFragment
-import com.example.nimble.viewModels.LoaderViewModel
+import com.example.nimble.viewModel.LoaderViewModel
+import com.example.nimble.viewModel.TokenViewModel
+import com.example.nimble.viewModel.factory.AppViewModelProvider
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val loaderViewModel: LoaderViewModel by viewModels()
-    private val loaderFragment = LoaderFragment()
+    private val loaderViewModel by lazy{
+        AppViewModelProvider(this).get(LoaderViewModel::class.java)
+    }
+    private val tokenViewModel by lazy{
+        AppViewModelProvider(this).get(TokenViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +33,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         loaderViewModel.loader.observe(this) { loader ->
-            if(loader != null && loader && !loaderFragment.isVisible) {
-                loaderFragment.isCancelable = false
-                loaderFragment.show(supportFragmentManager, "loader_fragment")
+            if(loader != null && loader && !loaderViewModel.loaderDialog.isVisible) {
+                loaderViewModel.loaderDialog.isCancelable = false
+                loaderViewModel.loaderDialog.show(supportFragmentManager, "loader_fragment")
             }
         }
 
+        tokenViewModel.checkTokenRefresh()
     }
 }

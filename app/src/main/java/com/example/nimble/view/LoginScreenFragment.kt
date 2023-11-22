@@ -13,10 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.nimble.R
 import com.example.nimble.databinding.FragmentLoginScreenBinding
-import com.example.domain.entities.loginResponse.LoginRequest
-import com.example.nimble.BuildConfig
 import com.example.nimble.viewModel.LoaderViewModel
 import com.example.nimble.viewModel.LoginViewModel
+import com.example.nimble.viewModel.TokenViewModel
 import com.example.nimble.viewModel.factory.AppViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 
@@ -25,6 +24,9 @@ class LoginScreenFragment : Fragment() {
     private var _binding: FragmentLoginScreenBinding? = null
     private val loaderViewModel by lazy{
         AppViewModelProvider(activity).get(LoaderViewModel::class.java)
+    }
+    private val tokenViewModel by lazy{
+        AppViewModelProvider(activity).get(TokenViewModel::class.java)
     }
     private val viewModel by lazy{
         AppViewModelProvider(activity).get(LoginViewModel::class.java)
@@ -62,8 +64,7 @@ class LoginScreenFragment : Fragment() {
                     "You must fill all fields to continue!", Snackbar.LENGTH_LONG).show()
             } else {
                 loaderViewModel.setLoader(true)
-                val parameters = LoginRequest(BuildConfig.API_CLIENT, BuildConfig.API_SECRET, email, "password", password)
-                viewModel.login(parameters)
+                viewModel.login(email, password)
             }
 
             val inputMethodManager: InputMethodManager = requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -71,12 +72,9 @@ class LoginScreenFragment : Fragment() {
         }
 
         viewModel.loginResponseLiveData.observe(viewLifecycleOwner){ response ->
-            response.access_token?.let { accessToken ->
-                val bundle = Bundle()
-                bundle.putString("token", accessToken)
-                findNavController().navigate(R.id.action_LoginScreen_to_SurveyPresentationScreen,bundle)
-
-            } ?: run {
+                if(tokenViewModel.setToken(response)){
+                findNavController().navigate(R.id.action_LoginScreen_to_SurveyPresentationScreen)
+            } else {
                 loaderViewModel.setLoader(false)
                 Snackbar.make(requireActivity().findViewById(android.R.id.content),
                     response.error_message.toString(), Snackbar.LENGTH_LONG).show()

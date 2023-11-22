@@ -12,6 +12,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.example.domain.entities.Result
+import com.example.domain.entities.refreshToken.RefreshRequest
 
 class NimbleService {
 
@@ -99,4 +100,44 @@ class NimbleService {
 
         }
     }
+
+    suspend fun refreshToken(parameters: RefreshRequest): Result<LoginResponse> {
+        return withContext(Dispatchers.IO) {
+            val response: Response<Map<*, *>?> = retrofit.create(ApiService::class.java).refreshToken("oauth/token", parameters)
+            var userInfo = LoginResponse(null, null, null, null, null,"Something went wrong, please try again")
+
+            if(response.isSuccessful) {
+                val loginResponse = response.body()
+
+                loginResponse?.let {
+                    if(loginResponse.containsKey("data")) {
+                        val data: Map<*, *> = loginResponse["data"] as Map<*, *>
+                        val attributes: Map<*, *> = data["attributes"] as Map<*, *>
+                        val accessToken: String = attributes["access_token"].toString()
+                        val tokenType: String = attributes["token_type"].toString()
+                        val expiresIn: Long = attributes["expires_in"].toString().toDouble().toLong()
+                        val refreshToken: String = attributes["refresh_token"].toString()
+                        val createdAt: Long = attributes["created_at"].toString().toDouble().toLong()
+
+                        userInfo = LoginResponse(accessToken, createdAt, expiresIn,  refreshToken, tokenType, null)
+                    }
+
+                    if(loginResponse.containsKey("errors")) {
+                        val errors: Map<*, *> = loginResponse["errors"] as Map<*, *>
+                        val detail: String = errors["detail"].toString()
+
+                        userInfo = LoginResponse(null, null, null, null, null, detail)
+                    }
+                }
+                Result.Success(userInfo)
+            } else {
+                when(response.errorBody()){
+                    else -> Result.Failure(LoginErrorException())
+                }
+            }
+
+        }
+    }
+
+
 }
