@@ -1,59 +1,6 @@
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable-anydpi/arrow_back.xml" value="0.228" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.157" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable/elipse_1.xml" value="0.2375" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.1985" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.157" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable/lot_picker.xml" value="0.1325" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable/progress_bar_content_main.xml" value="0.2375" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable/progress_bar_drawable.xml" value="0.157" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable/recycler_view_constraintlayout.xml" value="0.1585" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable/spinner_background.xml" value="0.211" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/font/alegreya_sans_sc_extrabold_italic.xml" value="0.284375" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/font/alegreya_sans_sc_thin.xml" value="0.284375" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/font/bevan.xml" value="0.284375" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/content_main.xml" value="0.25" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/fragment_add_reservation.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/fragment_first.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/fragment_lot.xml" value="0.264" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/fragment_parking_lots.xml" value="0.25025641025641027" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/fragment_reservations.xml" value="0.23854166666666668" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/fragment_second.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_add_reservation.xml" value="0.264" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_date_picker.xml" value="0.18854166666666666" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_delete_dialog.xml" value="0.264" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_dialog_fragment_test.xml" value="0.275" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_drop_down_item.xml" value="0.23697916666666666" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_item_reservation.xml" value="0.264" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_lot_item.xml" value="0.264" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_lot_picker.xml" value="0.275" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_parking_lots.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_reservations.xml" value="0.2" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/lot_item_recycler_view.xml" value="0.264" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/main_recycle_view_item.xml" value="0.536" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/main_recycle_view_item_free.xml" value="0.4" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/main_recycle_view_item_with_content.xml" value="0.4" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/menu/fragment_lot_menu.xml" value="0.264" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/menu/menu_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2375" />
-        <entry key="..\:/Users/Tomas/Desktop/Globant/Proyecto_Globant/My_First_App/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2375" />
-        <entry key="..\:/Users/Tomas/Desktop/Trabajo/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable/elipse_1.xml" value="0.1705" />
-        <entry key="..\:/Users/Tomas/Desktop/Trabajo/Globant/Proyecto_Globant/My_First_App/app/src/main/res/drawable/spinner_background.xml" value="0.185" />
-        <entry key="..\:/Users/Tomas/Desktop/Trabajo/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_add_reservation.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Tomas/Desktop/Trabajo/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_delete_dialog.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Tomas/Desktop/Trabajo/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_drop_down_item.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Tomas/Desktop/Trabajo/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_item_reservation.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Tomas/Desktop/Trabajo/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_lot_item.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Tomas/Desktop/Trabajo/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_parking_lots.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Tomas/Desktop/Trabajo/Globant/Proyecto_Globant/My_First_App/app/src/main/res/layout/layout_reservations.xml" value="0.36666666666666664" />
-      </map>
-    </option>
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

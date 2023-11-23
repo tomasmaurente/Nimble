@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Nimble</string>
     <string name="action_settings">Settings</string>
 
@@ -18,4 +19,5 @@
     <string name="button_text">Start Survey</string>
     <string name="subtitle_text">We would like to know how you feel about our work from home (WFH) experience.</string>
     <string name="title_text">Working from home Check-In</string>
+
 </resources>

@@ -4,6 +4,7 @@
     android:id="@+id/father_constraint"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+
     <ImageView
         android:id="@+id/ellipse_1"
         android:layout_width="@dimen/dots_size"

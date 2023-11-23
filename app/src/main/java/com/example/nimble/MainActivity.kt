@@ -2,22 +2,21 @@ package com.example.nimble
 
 import android.os.Build
 import android.os.Bundle
+import com.example.nimble.nimble.viewModel.LoaderViewModel
+import com.example.nimble.nimble.viewModel.TokenViewModel
+import com.example.nimble.nimble.viewModel.factory.AppViewModelProvider
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
-import com.example.domain.entities.loginResponse.LoginResponse
 import com.example.nimble.databinding.ActivityMainBinding
-import com.example.nimble.viewModel.LoaderViewModel
-import com.example.nimble.viewModel.TokenViewModel
-import com.example.nimble.viewModel.factory.AppViewModelProvider
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val loaderViewModel by lazy{
-        AppViewModelProvider(this).get(LoaderViewModel::class.java)
+        AppViewModelProvider(this)[LoaderViewModel::class.java]
     }
     private val tokenViewModel by lazy{
-        AppViewModelProvider(this).get(TokenViewModel::class.java)
+        AppViewModelProvider(this)[TokenViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,3 +41,19 @@ class MainActivity : AppCompatActivity() {
         tokenViewModel.checkTokenRefresh()
     }
 }
+/*
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    NimbleTheme {
+        Greeting("Android")
+    }
+}*/

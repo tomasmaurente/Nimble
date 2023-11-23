@@ -13,23 +13,23 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.nimble.R
 import com.example.nimble.databinding.FragmentLoginScreenBinding
-import com.example.nimble.viewModel.LoaderViewModel
-import com.example.nimble.viewModel.LoginViewModel
-import com.example.nimble.viewModel.TokenViewModel
-import com.example.nimble.viewModel.factory.AppViewModelProvider
+import com.example.nimble.nimble.viewModel.LoaderViewModel
+import com.example.nimble.nimble.viewModel.LoginViewModel
+import com.example.nimble.nimble.viewModel.TokenViewModel
+import com.example.nimble.nimble.viewModel.factory.AppViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 
 class LoginScreenFragment : Fragment() {
 
     private var _binding: FragmentLoginScreenBinding? = null
     private val loaderViewModel by lazy{
-        AppViewModelProvider(activity).get(LoaderViewModel::class.java)
+        AppViewModelProvider(activity)[LoaderViewModel::class.java]
     }
     private val tokenViewModel by lazy{
-        AppViewModelProvider(activity).get(TokenViewModel::class.java)
+        AppViewModelProvider(activity)[TokenViewModel::class.java]
     }
     private val viewModel by lazy{
-        AppViewModelProvider(activity).get(LoginViewModel::class.java)
+        AppViewModelProvider(activity)[LoginViewModel::class.java]
     }
 
     // This property is only valid between onCreateView and

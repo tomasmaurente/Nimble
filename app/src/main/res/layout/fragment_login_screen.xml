@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_grey"
     tools:context=".view.LoginScreenFragment"
-    android:background="@color/background_grey">
+    >
 
     <ImageView
         android:id="@+id/backgroundImage"
@@ -89,7 +90,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passInput"
         />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
