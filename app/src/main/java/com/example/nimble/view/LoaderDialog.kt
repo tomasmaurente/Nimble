@@ -8,14 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.nimble.databinding.FragmentLoaderBinding
-import com.example.nimble.viewModel.LoaderViewModel
-import com.example.nimble.viewModel.factory.AppViewModelProvider
+import com.example.nimble.nimble.viewModel.LoaderViewModel
+import com.example.nimble.nimble.viewModel.factory.AppViewModelProvider
 
 class LoaderDialog : DialogFragment() {
     private var _binding: FragmentLoaderBinding? = null
     private val binding get() = _binding!!
     private val loaderViewModel by lazy{
-        AppViewModelProvider(activity).get(LoaderViewModel::class.java)
+        AppViewModelProvider(activity)[LoaderViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

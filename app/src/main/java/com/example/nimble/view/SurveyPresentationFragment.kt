@@ -6,18 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.nimble.R
+import com.example.nimble.data.mock.SurveyPresentationMock
 import com.example.nimble.databinding.FragmentSurveyPresentationBinding
-import com.example.data.mock.SurveyPresentationMock
-import com.example.domain.entities.surveyListResponse.SurveyAttributesDto
-import com.example.nimble.viewModel.factory.AppViewModelProvider
-import com.example.nimble.viewModel.LoaderViewModel
-import com.example.nimble.viewModel.SurveyPresentationViewModel
-import com.example.nimble.adapters.SurveyPresentationAdapter
-import com.example.nimble.viewModel.TokenViewModel
+import com.example.nimble.domain.entities.surveyListResponse.SurveyAttributesDto
+import com.example.nimble.nimble.viewModel.factory.AppViewModelProvider
+import com.example.nimble.nimble.viewModel.LoaderViewModel
+import com.example.nimble.nimble.viewModel.SurveyPresentationViewModel
+import com.example.nimble.nimble.adapters.SurveyPresentationAdapter
+import com.example.nimble.nimble.viewModel.TokenViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class  SurveyPresentationFragment : Fragment() {
@@ -25,13 +24,13 @@ class  SurveyPresentationFragment : Fragment() {
     private var _binding: FragmentSurveyPresentationBinding? = null
 
     private val loaderViewModel by lazy{
-        AppViewModelProvider(activity).get(LoaderViewModel::class.java)
+        AppViewModelProvider(activity)[LoaderViewModel::class.java]
     }
     private val tokenViewModel by lazy{
-        AppViewModelProvider(activity).get(TokenViewModel::class.java)
+        AppViewModelProvider(activity)[TokenViewModel::class.java]
     }
     private val viewModel by lazy{
-        AppViewModelProvider(activity).get(SurveyPresentationViewModel::class.java)
+        AppViewModelProvider(activity)[SurveyPresentationViewModel::class.java]
     }
 
     // This property is only valid between onCreateView and
