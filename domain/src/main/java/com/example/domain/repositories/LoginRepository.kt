@@ -5,5 +5,5 @@ import com.example.domain.entities.loginResponse.LoginRequest
 import com.example.domain.entities.loginResponse.LoginResponse
 
 interface LoginRepository {
-    suspend fun loginRequest(loginParameters: LoginRequest): Result<LoginResponse>
+    suspend fun loginRequest(loginParameters: LoginRequest): LoginResponse
 }

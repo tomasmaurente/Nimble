@@ -1,7 +1,7 @@
 package com.example.data.mock
 
 import SurveyDto
-import com.example.data.responseObjects.surveyListResponse.SurveyAttributesDto
+import com.example.domain.entities.surveyListResponse.SurveyAttributesDto
 
 object SurveyPresentationMock {
 

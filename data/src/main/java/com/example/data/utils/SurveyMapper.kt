@@ -1,7 +1,7 @@
 package com.example.data.utils
 
 import SurveyDto
-import com.example.data.responseObjects.surveyListResponse.SurveyAttributesDto
+import com.example.domain.entities.surveyListResponse.SurveyAttributesDto
 import com.example.data.responseObjects.surveyListResponse.SurveyAttributesResponse
 import com.example.data.responseObjects.surveyListResponse.SurveyResponse
 

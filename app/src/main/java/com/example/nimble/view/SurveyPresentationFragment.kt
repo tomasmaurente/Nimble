@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.nimble.R
 import com.example.nimble.databinding.FragmentSurveyPresentationBinding
 import com.example.data.mock.SurveyPresentationMock
-import com.example.data.responseObjects.surveyListResponse.SurveyAttributesDto
+import com.example.domain.entities.surveyListResponse.SurveyAttributesDto
 import com.example.nimble.viewModel.factory.AppViewModelProvider
 import com.example.nimble.viewModel.LoaderViewModel
 import com.example.nimble.viewModel.SurveyPresentationViewModel
