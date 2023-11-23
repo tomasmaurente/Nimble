@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.entities.Result
 import com.example.domain.entities.loginResponse.LoginRequest
 import com.example.domain.entities.loginResponse.LoginResponse
 import com.example.domain.usecases.LoginUseCase
-import com.example.domain.utils.ErrorHandler
 import com.example.nimble.BuildConfig
 import kotlinx.coroutines.launch
 
