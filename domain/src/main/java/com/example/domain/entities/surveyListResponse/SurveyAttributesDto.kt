@@ -1,4 +1,4 @@
-package com.example.data.responseObjects.surveyListResponse
+package com.example.domain.entities.surveyListResponse
 
 data class SurveyAttributesDto(
     val active_at: String? = null,

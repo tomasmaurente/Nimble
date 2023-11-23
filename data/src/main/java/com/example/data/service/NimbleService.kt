@@ -1,8 +1,8 @@
 package com.example.data.service
 
-import com.example.data.exceptions.LoginErrorException
 import com.example.data.responseObjects.surveyListResponse.SurveyAttributesResponse
 import com.example.data.responseObjects.surveyListResponse.SurveyResponse
+import com.example.data.utils.exceptions.SurveyListRequestException
 import com.example.domain.entities.loginResponse.LoginRequest
 import com.example.domain.entities.loginResponse.LoginResponse
 import kotlinx.coroutines.Dispatchers
@@ -10,6 +10,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 import com.example.domain.entities.Result
 import com.example.domain.entities.refreshToken.RefreshRequest
+import com.example.domain.utils.ErrorHandler
 
 class NimbleService {
 
@@ -47,11 +48,11 @@ class NimbleService {
         }
     }
 
-    suspend fun login(parameters: LoginRequest): Result<LoginResponse> {
-        return withContext(Dispatchers.IO) {
+    suspend fun login(parameters: LoginRequest): LoginResponse {
+        var userInfo = LoginResponse(error_message = ErrorHandler.UnexpectedLoginError.errorMessage)
+        withContext(Dispatchers.IO) {
             val response: Response<Map<*, *>?> = RetrofitFactory.getRetrofitForAuthentication()
                 .create(ApiService::class.java).login("oauth/token", parameters)
-            var userInfo = LoginResponse(null, null, null, null, null,"Something went wrong, please try again")
 
             if(response.isSuccessful) {
                 val loginResponse = response.body()
@@ -66,31 +67,29 @@ class NimbleService {
                         val refreshToken: String = attributes["refresh_token"].toString()
                         val createdAt: Long = attributes["created_at"].toString().toDouble().toLong()
 
-                        userInfo = LoginResponse(accessToken, createdAt, expiresIn,  refreshToken, tokenType, null)
-                    }
-
-                    if(loginResponse.containsKey("errors")) {
-                        val errors: Map<*, *> = loginResponse["errors"] as Map<*, *>
-                        val detail: String = errors["detail"].toString()
-
-                        userInfo = LoginResponse(null, null, null, null, null, detail)
+                        userInfo = LoginResponse(accessToken, createdAt, expiresIn,  refreshToken, tokenType)
                     }
                 }
-                Result.Success(userInfo)
             } else {
-                when(response.errorBody()){
-                    else -> Result.Failure(LoginErrorException())
+                val errorType =
+                if(response.code() == 400){
+                    ErrorHandler.PasswordError
+                } else if (response.code() == 401) {
+                    ErrorHandler.ApiKeyError
+                } else {
+                    ErrorHandler.UnexpectedLoginError
                 }
+                userInfo = LoginResponse(error_message = errorType.errorMessage)
             }
-
         }
+        return userInfo
     }
 
     suspend fun refreshToken(parameters: RefreshRequest): Result<LoginResponse> {
         return withContext(Dispatchers.IO) {
             val response: Response<Map<*, *>?> = RetrofitFactory.getRetrofitForAuthentication()
                 .create(ApiService::class.java).refreshToken("oauth/token", parameters)
-            var userInfo = LoginResponse(null, null, null, null, null,"Something went wrong, please try again")
+            var userInfo = LoginResponse(null, null, null, null, null)
 
             if(response.isSuccessful) {
                 val loginResponse = response.body()
@@ -105,20 +104,20 @@ class NimbleService {
                         val refreshToken: String = attributes["refresh_token"].toString()
                         val createdAt: Long = attributes["created_at"].toString().toDouble().toLong()
 
-                        userInfo = LoginResponse(accessToken, createdAt, expiresIn,  refreshToken, tokenType, null)
+                        userInfo = LoginResponse(accessToken, createdAt, expiresIn,  refreshToken, tokenType)
                     }
 
                     if(loginResponse.containsKey("errors")) {
                         val errors: Map<*, *> = loginResponse["errors"] as Map<*, *>
                         val detail: String = errors["detail"].toString()
 
-                        userInfo = LoginResponse(null, null, null, null, null, detail)
+                        userInfo = LoginResponse(null, null, null, null, null)
                     }
                 }
                 Result.Success(userInfo)
             } else {
                 when(response.errorBody()){
-                    else -> Result.Failure(LoginErrorException())
+                    else -> Result.Failure(ErrorHandler.UnexpectedLoginError)
                 }
             }
         }

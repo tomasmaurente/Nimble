@@ -1,4 +1,4 @@
-import com.example.data.responseObjects.surveyListResponse.SurveyAttributesDto
+import com.example.domain.entities.surveyListResponse.SurveyAttributesDto
 
 data class SurveyDto(
     val attributes: SurveyAttributesDto,

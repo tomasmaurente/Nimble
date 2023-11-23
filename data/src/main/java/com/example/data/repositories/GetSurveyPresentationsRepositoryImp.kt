@@ -28,7 +28,7 @@ class GetSurveyPresentationsRepositoryImp(
                 )
             }
             is Result.Failure -> {
-                Result.Failure(result.exception)
+                Result.Failure(result.error)
             }
         }
     }
