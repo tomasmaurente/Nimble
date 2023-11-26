@@ -1,8 +1,8 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.example.nimble.view.composeViews
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,121 +10,194 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFromBaseline
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Snackbar
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nimble.R
+import com.example.nimble.nimble.viewModel.LoginViewModel
+import kotlinx.coroutines.launch
+
+val neuzeit_s_lt_std_book = FontFamily(Font(R.font.neuzeit_s_lt_std_book))
 
 @Composable
-fun LoginScreen(){
+fun LoginScreen(viewModel: LoginViewModel) {
+    BackgroundImage()
     Box(
         Modifier
             .fillMaxSize()
-            .padding(16.dp)) {
-        Login(Modifier.align(Alignment.Center))
-        }
-}
-
-@Composable
-fun Login(modifier: Modifier) {
-    Column (modifier = modifier) {
-        HeaderImage(Modifier.align(Alignment.CenterHorizontally))
-        Spacer(modifier = Modifier.padding(16.dp))
-        EmailField()
-        Spacer(modifier = Modifier.padding(4.dp))
-        PasswordField()
-        Spacer(modifier = Modifier.padding(8.dp))
-        ForgotPassword(Modifier.align(Alignment.End))
-        Spacer(modifier = Modifier.padding(16.dp))
-        LoginButton()
+            .padding(16.dp)
+    ) {
+        Login(viewModel)
     }
 }
 
 @Composable
-fun LoginButton() {
-    Button(
-        onClick = { /*TODO*/ },
+fun Login(viewModel: LoginViewModel) {
+
+    val email: String by viewModel.email.observeAsState(initial = "")
+    val password: String by viewModel.password.observeAsState(initial = "")
+    val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
+    val showSnackbar: Boolean by viewModel.showSnack.observeAsState(initial = false)
+
+    if (isLoading) {
+        Box(Modifier.fillMaxSize()) {
+            CircularProgressIndicator(Modifier.align(Alignment.Center))
+        }
+    } else {
+        Box(Modifier.fillMaxSize()) {
+            if (showSnackbar) {
+                Snackbar(
+                    modifier = Modifier.align(Alignment.BottomCenter)
+                ) {
+                    Text(text = viewModel.snackContent)
+                }
+            }
+            Column(modifier = Modifier.align(Alignment.Center)) {
+                HeaderImage(Modifier.align(Alignment.CenterHorizontally))
+                Spacer(modifier = Modifier.paddingFromBaseline(dimensionResource(id = R.dimen.margin_nimble_icon)))
+                EmailField(email) { viewModel.onLoginChanged(it, password) }
+                Spacer(modifier = Modifier.paddingFromBaseline(dimensionResource(id = R.dimen.margin_vertical_text_input)))
+                PasswordField(password, { viewModel.onForgotPressed() }) { viewModel.onLoginChanged(email, it) }
+                Spacer(modifier = Modifier.paddingFromBaseline(dimensionResource(id = R.dimen.margin_vertical_text_input)))
+                LoginButton { viewModel.onLoginSelected() }
+            }
+        }
+    }
+}
+
+@Composable
+fun EmailField(email: String, onTextFieldChanged: (String) -> Unit) {
+    OutlinedTextField(
+        value = email,
+        onValueChange = { onTextFieldChanged(it) },
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Blue,
-            disabledContainerColor = Color.Magenta
-        )
-    )
-    {
-        Text(
-            text = "Log in"
-        )
-    }
-}
-
-@Composable
-fun ForgotPassword(modifier: Modifier) {
-    Text(
-        text = "Forgot your password?",
-        modifier,
-        fontWeight = FontWeight.Bold,
-        fontSize = 12.sp,
-        color = Color.Green
-    )
-}
-
-@Composable
-fun PasswordField() {
-    TextField(
-        value = "",
-        onValueChange = {},
-        modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Password")},
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        singleLine = true,
-        maxLines = 1,
-        colors = TextFieldDefaults.textFieldColors(
-            textColor = Color.Cyan,
-
-            focusedIndicatorColor = Color.Blue,
-            unfocusedIndicatorColor = Color.Gray
-        )
-    )
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun EmailField() {
-    TextField(
-        value = "",
-        onValueChange = {},
-        modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Email")},
+            .height(dimensionResource(id = R.dimen.height_hint_text_input)),
+        placeholder = { Text(text = stringResource(id = R.string.email)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         singleLine = true,
         maxLines = 1,
-        colors = TextFieldDefaults.textFieldColors(
-            textColor = Color.Cyan,
-
-            focusedIndicatorColor = Color.Blue,
-            unfocusedIndicatorColor = Color.Gray
-        )
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            textColor = Color.White,
+            focusedBorderColor = Color.Black,
+            focusedLabelColor = Color.Black,
+            backgroundColor = colorResource(id = R.color.dark_grey)
+        ),
+        shape = RoundedCornerShape(dimensionResource(id = R.dimen.corner_radius))
     )
+}
+
+@Composable
+fun PasswordField(password: String,
+                  onForgotButtonPressed: () -> Unit,
+                  onTextFieldChanged: (String) -> Unit) {
+    OutlinedTextField(
+        value = password,
+        onValueChange = { onTextFieldChanged(it) },
+        placeholder = {
+            Text(
+                text = stringResource(id = R.string.password),
+                fontFamily = neuzeit_s_lt_std_book
+            ) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(dimensionResource(id = R.dimen.height_hint_text_input)),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        singleLine = true,
+        maxLines = 1,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            textColor = Color.White,
+            focusedBorderColor = Color.Black,
+            focusedLabelColor = Color.Black,
+            backgroundColor = colorResource(id = R.color.dark_grey)
+        ),
+        shape = RoundedCornerShape(dimensionResource(id = R.dimen.corner_radius)),
+        trailingIcon = { ForgotPassword(onForgotButtonPressed) }
+    )
+}
+
+@Composable
+fun ForgotPassword( onForgotButtonPressed: () -> Unit) {
+    Text(
+        text = stringResource(id = R.string.forgot),
+        modifier = Modifier
+            .clickable { onForgotButtonPressed() }
+            .padding(dimensionResource(id = R.dimen.fab_margin)),
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Bold,
+        color = colorResource(id = R.color.dark_grey),
+        fontFamily = neuzeit_s_lt_std_book
+    )
+}
+
+@Composable
+fun LoginButton(onLoginSelected: () -> Unit) {
+    OutlinedButton(
+        onClick = { onLoginSelected() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(dimensionResource(id = R.dimen.height_hint_text_input)),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.White,
+        ),
+        enabled = true,
+        shape = RoundedCornerShape(dimensionResource(id = R.dimen.corner_radius)),
+        border = BorderStroke(1.dp, Color.Black)
+
+    ) {
+        Text(
+            text = stringResource(id = R.string.loguin),
+            color = Color.Black,
+            fontFamily = neuzeit_s_lt_std_book,
+            fontWeight = FontWeight.Bold
+        )
+    }
 }
 
 @Composable
 fun HeaderImage(modifier: Modifier) {
-    Image(painter = painterResource(id = R.drawable.ic_logo_white), contentDescription = "logo", modifier = modifier)
+    Image(
+        painter = painterResource(id = R.drawable.ic_logo_white),
+        contentDescription = "Header",
+        modifier = modifier
+    )
 }
+
+@Composable
+fun BackgroundImage() {
+    Image(
+        painter = painterResource(id = R.drawable.background_image),
+        contentDescription = "Background",
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .fillMaxSize()
+            .blur(10.dp)
+    )
+}
+
