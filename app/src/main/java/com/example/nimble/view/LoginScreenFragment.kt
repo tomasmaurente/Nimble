@@ -47,15 +47,16 @@ class LoginScreenFragment : Fragment() {
             LoginScreen(viewModel)
         }
 
-        viewModel.loginEnable.observe(viewLifecycleOwner) { loginEnabled ->
-            if (!loginEnabled) {
-                viewModel.showSnackBar(getString(R.string.incomplete_fields_text))
-            } else {
+        viewModel.email
+
+        viewModel.loginEnable.observe(viewLifecycleOwner){isEnabled ->
+            if (isEnabled) {
                 loaderViewModel.setLoader(true)
-                viewModel.login()
+                viewModel.login(viewModel.email.value.toString(), viewModel.password.value.toString())
+            } else {
+                viewModel.showSnackBar(getString(R.string.incomplete_fields_text))
             }
         }
-
 
         val inputMethodManager: InputMethodManager =
             requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -70,4 +71,5 @@ class LoginScreenFragment : Fragment() {
             }
         }
     }
+
 }

@@ -1,6 +1,5 @@
 package com.example.nimble.nimble.viewModel
 
-import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val loginUseCase: LoginUseCase): ViewModel() {
+
     private val _loginResponseLiveData = MutableLiveData<LoginResponse>()
     val loginResponseLiveData: LiveData<LoginResponse> = _loginResponseLiveData
 
@@ -25,6 +25,8 @@ class LoginViewModel(private val loginUseCase: LoginUseCase): ViewModel() {
     private val _loginEnable = MutableLiveData<Boolean>()
     val loginEnable: LiveData<Boolean> = _loginEnable
 
+    private var loginEnabled: Boolean = false
+
     private val _showSnack = MutableLiveData<Boolean>()
     var snackContent: String = "Hello world"
     val showSnack: LiveData<Boolean> = _showSnack
@@ -34,8 +36,8 @@ class LoginViewModel(private val loginUseCase: LoginUseCase): ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
 
-    fun login() {
-        val parameters = LoginRequest(BuildConfig.API_CLIENT, BuildConfig.API_SECRET, email.toString(), "password", password.toString())
+    fun login(userEmail: String, userPassword: String) {
+        val parameters = LoginRequest(BuildConfig.API_CLIENT, BuildConfig.API_SECRET, userEmail, "password", userPassword)
 
         viewModelScope.launch {
             val response = loginUseCase(parameters)
@@ -46,10 +48,11 @@ class LoginViewModel(private val loginUseCase: LoginUseCase): ViewModel() {
     fun onLoginChanged(email: String, password: String) {
         _email.value = email
         _password.value = password
+        loginEnabled = isValidEmail(email) && isValidPassword(password)
     }
 
     fun onLoginSelected() {
-        _loginEnable.value = isValidEmail(email.toString()) && isValidPassword(password.toString())
+        _loginEnable.value = loginEnabled
     }
 
     fun onForgotPressed() {
@@ -65,7 +68,7 @@ class LoginViewModel(private val loginUseCase: LoginUseCase): ViewModel() {
         }
     }
 
-    private fun isValidPassword(password: String): Boolean = password.length > 6
+    private fun isValidPassword(password: String): Boolean = password.isNotBlank() && password.length > 5
 
-    private fun isValidEmail(email: String): Boolean  = email.length > 2//Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    private fun isValidEmail(email: String): Boolean  = email.isNotBlank() && email.length > 4//Patterns.EMAIL_ADDRESS.matcher(email).matches()
 }

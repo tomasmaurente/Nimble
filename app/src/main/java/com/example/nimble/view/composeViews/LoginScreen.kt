@@ -37,11 +37,12 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nimble.R
 import com.example.nimble.nimble.viewModel.LoginViewModel
-import kotlinx.coroutines.launch
 
 val neuzeit_s_lt_std_book = FontFamily(Font(R.font.neuzeit_s_lt_std_book))
 
@@ -138,7 +139,8 @@ fun PasswordField(password: String,
             backgroundColor = colorResource(id = R.color.dark_grey)
         ),
         shape = RoundedCornerShape(dimensionResource(id = R.dimen.corner_radius)),
-        trailingIcon = { ForgotPassword(onForgotButtonPressed) }
+        trailingIcon = { ForgotPassword(onForgotButtonPressed) },
+        visualTransformation = PasswordVisualTransformation()
     )
 }
 
