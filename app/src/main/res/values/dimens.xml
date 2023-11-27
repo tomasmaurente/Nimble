@@ -4,6 +4,7 @@
     <!-- Login Screen -->
     <dimen name="height_hint_text">16sp</dimen>
     <dimen name="height_hint_text_input">54dp</dimen>
+    <dimen name="margin_nimble_icon">48dp</dimen>
     <dimen name="padding_text_input">12dp</dimen>
     <dimen name="margin_horizontal_text_input">24dp</dimen>
     <dimen name="margin_vertical_text_input">20dp</dimen>
