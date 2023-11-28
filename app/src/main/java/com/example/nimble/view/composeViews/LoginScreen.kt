@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -43,6 +44,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nimble.R
 import com.example.nimble.nimble.viewModel.LoginViewModel
+import com.example.nimble.view.composeViews.TestTags.login_btn
+import com.example.nimble.view.composeViews.TestTags.snack
 
 val neuzeit_s_lt_std_book = FontFamily(Font(R.font.neuzeit_s_lt_std_book))
 
@@ -73,11 +76,7 @@ fun Login(viewModel: LoginViewModel) {
     } else {
         Box(Modifier.fillMaxSize()) {
             if (showSnackbar) {
-                Snackbar(
-                    modifier = Modifier.align(Alignment.BottomCenter)
-                ) {
-                    Text(text = viewModel.snackContent)
-                }
+                ShowSnackbar(Modifier.align(Alignment.BottomCenter),  viewModel.snackContent)
             }
             Column(modifier = Modifier.align(Alignment.Center)) {
                 HeaderImage(Modifier.align(Alignment.CenterHorizontally))
@@ -89,6 +88,17 @@ fun Login(viewModel: LoginViewModel) {
                 LoginButton { viewModel.onLoginSelected() }
             }
         }
+    }
+}
+
+@Composable
+fun ShowSnackbar(modifier: Modifier, message: String){
+    Snackbar(
+        modifier = modifier.testTag(snack)
+    ) {
+        Text(
+            text = message
+        )
     }
 }
 
@@ -164,7 +174,8 @@ fun LoginButton(onLoginSelected: () -> Unit) {
         onClick = { onLoginSelected() },
         modifier = Modifier
             .fillMaxWidth()
-            .height(dimensionResource(id = R.dimen.height_hint_text_input)),
+            .height(dimensionResource(id = R.dimen.height_hint_text_input))
+            .testTag(login_btn),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.White,
         ),

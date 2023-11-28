@@ -1,5 +1,6 @@
 package com.example.nimble.nimble.viewModel
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +12,10 @@ import com.example.nimble.domain.usecases.LoginUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val loginUseCase: LoginUseCase): ViewModel() {
+class LoginViewModel(
+    private val loginUseCase: LoginUseCase
+
+): ViewModel() {
 
     private val _loginResponseLiveData = MutableLiveData<LoginResponse>()
     val loginResponseLiveData: LiveData<LoginResponse> = _loginResponseLiveData
@@ -70,5 +74,5 @@ class LoginViewModel(private val loginUseCase: LoginUseCase): ViewModel() {
 
     private fun isValidPassword(password: String): Boolean = password.isNotBlank() && password.length > 5
 
-    private fun isValidEmail(email: String): Boolean  = email.isNotBlank() && email.length > 4//Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    private fun isValidEmail(email: String): Boolean  = email.isNotBlank() && email.length > 4 && Patterns.EMAIL_ADDRESS.matcher(email).matches()
 }
