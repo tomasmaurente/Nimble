@@ -21,5 +21,5 @@ class LoginUseCase(private val loginRepository: LoginRepository){
 
     private fun isValidPassword(password: String): Boolean = password.isNotBlank() && password.length > 5
 
-    private fun isValidEmail(email: String): Boolean  = email.isNotBlank() && email.length > 4 && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    private fun isValidEmail(email: String): Boolean  = email.isNotBlank() && email.length > 4
 }

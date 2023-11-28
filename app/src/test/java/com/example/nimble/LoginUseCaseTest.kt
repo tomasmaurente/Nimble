@@ -1,6 +1,5 @@
 package com.example.nimble
 
-
 import com.example.nimble.data.repositories.LoginRepositoryImp
 import com.example.nimble.domain.entities.loginResponse.LoginRequest
 import com.example.nimble.domain.entities.loginResponse.LoginResponse
@@ -11,14 +10,17 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.mockk
-import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
-import org.junit.jupiter.api.Test
+import org.junit.Test
+import org.junit.jupiter.api.Assertions
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import kotlin.test.assertEquals
 
+@ExperimentalCoroutinesApi
 class LoginUseCaseTest {
 
     @RelaxedMockK
@@ -34,7 +36,7 @@ class LoginUseCaseTest {
     }
 
     @Test
-    fun ola() = runBlocking {
+    fun worksCorrectly() = runBlocking {
         val loginParameters = LoginRequest(
             email = "test@example.com",
             password = "password123",
@@ -53,41 +55,40 @@ class LoginUseCaseTest {
     }
 
     @Test
-    fun invalid() = runBlocking {
+    fun notAceptEmail() = runBlocking {
         val loginParameters = LoginRequest(
-            email = "test@example.com",
-            password = "123",
+            email = "tes",
+            password = "password123",
             client_id = "123",
             client_secret = "123",
             grant_type = "123"
         )
         val expectedResponse = LoginResponse(error_message = ErrorHandler.PasswordError.errorMessage)
 
-        whenever(loginRepo.loginRequest(loginParameters)).thenReturn(null)
+        coEvery { loginRepo.loginRequest(loginParameters) } returns expectedResponse
 
         val result = loginUseCase(loginParameters)
 
-        assertEquals(expectedResponse, result)
-        verify(loginRepo, times(1)).loginRequest(loginParameters)
+        assertEquals(expectedResponse.error_message, result.error_message)
+        coVerify (exactly = 0 ) {loginRepo.loginRequest(loginParameters)}
     }
 
     @Test
-    fun login() = runBlocking {
+    fun notAceptPassword() = runBlocking {
         val loginParameters = LoginRequest(
-            email = "test",
-            password = "123456456",
+            email = "test@gmail.com",
+            password = "pass",
             client_id = "123",
             client_secret = "123",
             grant_type = "123"
         )
         val expectedResponse = LoginResponse(error_message = ErrorHandler.PasswordError.errorMessage)
 
-        whenever(loginRepo.loginRequest(loginParameters)).thenReturn(null)
+        coEvery { loginRepo.loginRequest(loginParameters) } returns expectedResponse
 
         val result = loginUseCase(loginParameters)
 
-        assertEquals(expectedResponse, result)
-        verify(loginRepo, times(1)).loginRequest(loginParameters)
+        assertEquals(expectedResponse.error_message, result.error_message)
+        coVerify (exactly = 0 ) {loginRepo.loginRequest(loginParameters)}
     }
-
 }
